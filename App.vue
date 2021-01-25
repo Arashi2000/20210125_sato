@@ -1,17 +1,38 @@
 <template>
 <div id="app">
 <div class="home">
-<input type="number" v-model="text"/>
+<input type="text" v-model="text"/>
 <p>{{text}}</p>
 <button class="button-side" @click="sendAdress">住所自動入力</button>
 </div>
+<div class="text-area">
 <p class="address">
     address:</p>
+<p class="show-text">{{text}}</p>
+</div>
 </div>
 </template>
 
 <script>
-
+import axios from 'axios'
+export default {
+    data() {
+        return {
+            text:""
+        };
+    },
+    methods: {
+        sendAdress() {
+            console.log("yes");
+        }
+    },
+    created() {
+        axios.get('https://postcode-jp.com/')
+        .then((response) => {
+            console.log(response.data);
+        })
+    }
+};
 </script>
 
 <style>
@@ -119,8 +140,13 @@ input, select {
   margin-left: 10px;
 }
 
-.address {
+.text-area  {
   margin: 30px 10px;
+  display: flex;
+}
+
+.show-text {
+    margin-left: 10px;
 }
 
 </style>
